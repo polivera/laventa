@@ -10,8 +10,8 @@
     @vite('resources/css/app.css')
 </head>
 
-<body class="antialiased">
-    <div class="content m-w-[1275px] mx-auto">
+<body class="antialiased flex justify-center">
+    <div class="content xl:w-[1225px] w-[calc(100%-50px)]">
         @yield('content')
     </div>
 </body>

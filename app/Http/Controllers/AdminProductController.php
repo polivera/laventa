@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\SaveProductRequest;
 use App\Models\Product;
 
 class AdminProductController extends Controller
@@ -23,12 +23,31 @@ class AdminProductController extends Controller
 
     public function add()
     {
-        return view('admin.product.form');
+        return view('admin.product.form', [
+            'id' => '',
+            'name' => '',
+            'amount' => '',
+            'description' => '',
+        ]);
     }
 
-    public function addPost(Request $request)
+    public function detalle($productId)
     {
-        //@todo validation
+        $product = $this->productModel->getById($productId);
+        if (!$product) {
+            abort(404, 'Page not found');
+        }
+        return view('admin.product.form', [
+            'id' => $product->id,
+            'name' => $product->name,
+            'amount' => $product->amount,
+            'description' => $product->description,
+        ]);
+    }
+
+    public function addPost(SaveProductRequest $request)
+    {
+        $request->validated();
         $amount = $request->input('amount') * 100;
         Product::new(
             $request->input('name'),

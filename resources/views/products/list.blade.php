@@ -6,5 +6,8 @@
             @include('products.list-item')
         @endforeach
     </div>
+    <div class="py-6 px-[15px]">
+    {{ $products->links('pagination') }}
+    </div>
 @endsection
 

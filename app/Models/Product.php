@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
 
 class Product extends Model
 {
@@ -25,9 +24,9 @@ class Product extends Model
     /**
      * Retrieve all the products
      */
-    public function getProducts($skip = 0, $take = 20)
+    public function getProducts($take = 20)
     {
-        return Product::take($take)->skip($skip)->get();
+        return Product::orderBy(self::NAME)->paginate($take);
     }
 
     public function getById($productId)
@@ -40,13 +39,13 @@ class Product extends Model
         return number_format($this->amount / 100, 2);
     }
 
-    public static function new($name, $amount, $description): Product
+    public static function new($fieldsArray): Product
     {
-        return Product::create([
-            Product::ID => Str::uuid(),
-            Product::NAME => $name,
-            Product::AMOUNT => $amount,
-            Product::DESCRIPTION => $description,
-        ]);
+        return Product::create($fieldsArray);
+    }
+
+    public static function change($id, $fieldArray)
+    {
+        return Product::where('id', $id)->update($fieldArray);
     }
 }

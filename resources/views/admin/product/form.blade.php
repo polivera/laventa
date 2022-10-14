@@ -8,9 +8,9 @@
         @else
             <div class="text-[1.1rem] py-4 text-fg"> Agregar nuevo producto </div>
         @endif
-        <form class="flex flex-col gap-4" action="{{ url('admin/productos/agregar') }}" method="post">
+        <form class="flex flex-col gap-4" action="{{ url('admin/productos') }}" method="post">
             @csrf
-            <input type="hidden" value="{{ $id }}" />
+            <input type="hidden" name="id" value="{{ $id }}" />
             <div class="flex flex-col">
                 <label class="text-fg" for="name">Nombre: <span class="text-red-600">*</span></label>
                 <input class="rounded-md border border-gray-300 px-4 pb-2 pt-1" type="text" name="name" id="name"

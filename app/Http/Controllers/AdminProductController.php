@@ -31,7 +31,7 @@ class AdminProductController extends Controller
         ]);
     }
 
-    public function detalle($productId)
+    public function detail($productId)
     {
         $product = $this->productModel->getById($productId);
         if (!$product) {
@@ -45,15 +45,22 @@ class AdminProductController extends Controller
         ]);
     }
 
-    public function addPost(SaveProductRequest $request)
+    public function save(SaveProductRequest $request)
     {
         $request->validated();
-        $amount = $request->input('amount') * 100;
-        Product::new(
-            $request->input('name'),
-            $amount,
-            $request->input('description')
-        );
+        $amount = intval($request->input('amount') * 100);
+
+        $dataToStore = [
+            Product::NAME => $request->input('name'),
+            Product::AMOUNT => $amount,
+            Product::DESCRIPTION => $request->input('description')
+        ];
+
+        if ($request->input('id', null)) {
+            Product::change($request->input('id'), $dataToStore);
+        } else {
+            Product::new($dataToStore);
+        }
 
         return redirect('/admin/productos');
     }

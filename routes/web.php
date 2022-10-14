@@ -24,9 +24,8 @@ Route::prefix('/admin')->group(function () {
     Route::prefix('/productos')->group(function () {
         Route::get('/', [AdminProductController::class, 'index']);
         Route::get('/agregar', [AdminProductController::class, 'add']);
-        Route::post('/agregar', [AdminProductController::class, 'addPost']);
-        Route::get('/{id}', [AdminProductController::class, 'detalle']);
-        Route::put('/{id}', [AdminProductController::class, 'editar']);
-        Route::delete('/{id}', [AdminProductController::class, 'borrar']);
+        Route::post('/', [AdminProductController::class, 'save']);
+        Route::get('/{id}', [AdminProductController::class, 'detail']);
+        Route::delete('/{id}', [AdminProductController::class, 'delete']);
     });
 });

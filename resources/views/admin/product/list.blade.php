@@ -17,7 +17,7 @@
             <tbody>
                 @foreach ($products as $product)
                     <tr class="hover:bg-gray-200 cursor-pointer"
-                        onclick="location.href = '{{ url("admin/productos/$product->id") }}'">
+                        onclick="location.href='{{ url("admin/productos/$product->id") }}'">
                         <td class="text-fg p-4">{{ $product->name }}</td>
                         <td class="text-center"> $ </td>
                         <td class="p-4 text-right text-stone-600"><strong>{{ $product->getFormattedAmount() }}</strong></td>
@@ -25,5 +25,6 @@
                 @endforeach
             </tbody>
         </table>
+        {{ $products->onEachSide(5)->links('pagination') }}
     </div>
 @endsection

@@ -25,6 +25,6 @@
                 @endforeach
             </tbody>
         </table>
-        {{ $products->onEachSide(5)->links('pagination') }}
+        {{ $products->links('pagination') }}
     </div>
 @endsection

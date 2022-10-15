@@ -28,12 +28,41 @@
                 @enderror
             </div>
             <div class="flex flex-col">
+                <label class="text-fg" for="category_id">Categoría: <span class="text-red-600">*</span></label>
+                <select class="rounded-md border border-gray-300 px-4 pb-2 pt-1 bg-white" name="category_id"
+                    id="category_id">
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->id }}" @if ($category_id == $category->id) selected @endif>
+                            {{ $category->name }}
+                        </option>
+                    @endforeach
+                    <select>
+            </div>
+            <div class="flex flex-col">
                 <label class="text-fg" for="description">Descripción: <span class="text-red-600">*</span></label>
                 <textarea class="rounded-md border border-gray-300 px-4 pb-2 pt-1" id="description" name="description" rows="8"> {{ old('description', $description) }}</textarea>
                 @error('description')
                     <span class="text-red-600"> {{ $message }} </span>
                 @enderror
             </div>
+
+            <div class="flex flex-col">
+                <label class="text-fg" for="image1">Imagen 1: </label>
+                <input type="file" name="image1" id="image1" />
+            </div>
+            <div class="flex flex-col">
+                <label class="text-fg" for="image2">Imagen 2: </label>
+                <input type="file" name="image2" id="image2" />
+            </div>
+            <div class="flex flex-col">
+                <label class="text-fg" for="image3">Imagen 3: </label>
+                <input type="file" name="image3" id="image3" />
+            </div>
+            <div class="flex flex-col">
+                <label class="text-fg" for="image4">Imagen 4: </label>
+                <input type="file" name="image4" id="image4" />
+            </div>
+
             <div class="flex justify-end">
                 <button class="bg-green-500 rounded-full py-2 px-4">Guardar Cambios</button>
             </div>

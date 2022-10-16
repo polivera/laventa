@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -52,6 +53,7 @@ class Product extends Model
 
     public static function new($fieldsArray): Product
     {
+        $fieldsArray[Product::ID] = Str::uuid();
         return Product::create($fieldsArray);
     }
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\SaveProductRequest;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\ProductImage;
 
 class AdminProductController extends Controller
 {
@@ -56,7 +57,6 @@ class AdminProductController extends Controller
 
     public function save(SaveProductRequest $request)
     {
-        dd($request);
         $request->validated();
         $amount = intval($request->input('amount') * 100);
 
@@ -68,24 +68,31 @@ class AdminProductController extends Controller
         ];
 
         if ($request->input('id', null)) {
-            Product::change($request->input('id'), $dataToStore);
+            $id = $request->input('id');
+            Product::change($id, $dataToStore);
+            $this->saveFiles($id, $request);
         } else {
-            Product::new($dataToStore);
+            $newProduct = Product::new($dataToStore);
+            $this->saveFiles($newProduct->id, $request);
         }
-
-        $this->saveFiles($request);
 
         return redirect('/admin/productos');
     }
 
-    private function saveFiles(SaveProductRequest $request)
+    private function saveFiles($productId, SaveProductRequest $request)
     {
-        for ($ind = 1; $ind <= 4; $ind++) {
-            if ($file = $request->file("image$ind", null)) {
-                $filename = date('YmdHi') . $file->getClientOriginalName();
-                $file->move(public_path('public/image'), $filename);
-                echo $filename;
-                dd($filename);
+        if ($request->allFiles()) {
+            ProductImage::deleteForProduct($productId);
+            for ($ind = 1; $ind <= 4; $ind++) {
+                if ($file = $request->file("image$ind", null)) {
+                    $filename = date('YmdHi') . $file->getClientOriginalName();
+                    $file->move(public_path('image'), $filename);
+                    $imageRow = [
+                        ProductImage::PRODUCT_ID => $productId,
+                        ProductImage::NAME => $filename,
+                    ];
+                    ProductImage::new($imageRow);
+                }
             }
         }
     }

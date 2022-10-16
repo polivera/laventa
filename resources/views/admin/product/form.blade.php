@@ -8,7 +8,7 @@
         @else
             <div class="text-[1.1rem] py-4 text-fg"> Agregar nuevo producto </div>
         @endif
-        <form class="flex flex-col gap-4" action="{{ url('admin/productos') }}" method="post">
+        <form class="flex flex-col gap-4" action="{{ url('admin/productos') }}" method="post" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="id" value="{{ $id }}" />
             <div class="flex flex-col">
@@ -32,7 +32,7 @@
                 <select class="rounded-md border border-gray-300 px-4 pb-2 pt-1 bg-white" name="category_id"
                     id="category_id">
                     @foreach ($categories as $category)
-                        <option value="{{ $category->id }}" @if ($category_id == $category->id) selected @endif>
+                        <option value="{{ $category->id }}" @if (old('category_id', $category_id) == $category->id) selected @endif>
                             {{ $category->name }}
                         </option>
                     @endforeach

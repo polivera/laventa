@@ -46,6 +46,14 @@
                 @enderror
             </div>
 
+            <div class="flex flex-row">
+                @foreach ($images as $image)
+                    <div>
+                        <img src="{{ url('image/' . $image->name) }}" />
+                    </div>
+                @endforeach
+            </div>
+
             <div class="flex flex-col">
                 <label class="text-fg" for="image1">Imagen 1: </label>
                 <input type="file" name="image1" id="image1" />
@@ -63,8 +71,9 @@
                 <input type="file" name="image4" id="image4" />
             </div>
 
-            <div class="flex justify-end">
-                <button class="bg-green-500 rounded-full py-2 px-4">Guardar Cambios</button>
+            <div class="flex justify-end gap-[20px]">
+                <button class="bg-green-500 rounded-full py-2 px-4">Guardar</button>
+                <a class="bg-red-500 rounded-full py-2 px-4" href="{{url('admin/productos/' . $id . '/borrar')}}">Borrar</a>
             </div>
         </form>
     </div>

@@ -24,17 +24,22 @@ class Product extends Model
 
     protected $fillable = [self::ID, self::CATEGORY_ID, self::NAME, self::AMOUNT, self::DESCRIPTION, self::IS_RESERVED];
 
+    public function images()
+    {
+        return $this->hasMany(ProductImage::class);
+    }
+
     /**
      * Retrieve all the products
      */
     public function getProducts($take = 20)
     {
-        return Product::orderBy(self::NAME)->paginate($take)->onEachSide(1);
+        return Product::with('images')->orderBy(self::NAME)->paginate($take)->onEachSide(1);
     }
 
     public function getById($productId): Product
     {
-        return Product::where('id', $productId)->first();
+        return Product::with('images')->where('id', $productId)->first();
     }
 
     public function getFormattedAmount()
@@ -61,4 +66,9 @@ class Product extends Model
     {
         return Product::where('id', $id)->update($fieldArray);
     }
+
+    public static function remove($id)
+    {
+            return Product::where('id', $id)->delete();
+        }
 }

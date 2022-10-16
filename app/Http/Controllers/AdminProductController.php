@@ -34,6 +34,7 @@ class AdminProductController extends Controller
             'name' => '',
             'amount' => '',
             'description' => '',
+            'images' => [],
             'categories' => $categories
         ]);
     }
@@ -51,6 +52,7 @@ class AdminProductController extends Controller
             'name' => $product->name,
             'amount' => $product->getRealAmount(),
             'description' => $product->description,
+            'images' => $product->images,
             'categories' => $categories
         ]);
     }
@@ -76,6 +78,13 @@ class AdminProductController extends Controller
             $this->saveFiles($newProduct->id, $request);
         }
 
+        return redirect('/admin/productos');
+    }
+
+    public function delete($productId)
+    {
+        ProductImage::deleteForProduct($productId);
+        Product::remove($productId);
         return redirect('/admin/productos');
     }
 

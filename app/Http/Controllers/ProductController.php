@@ -14,6 +14,13 @@ class ProductController extends Controller
         $this->productModel = $product;
     }
 
+
+    public function list()
+    {
+        $products = $this->productModel->getProducts();
+        return view('products.list', ['products' => $products]);
+    }
+
     //
     public function detail($productId)
     {

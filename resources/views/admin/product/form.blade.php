@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="w-full">
+    <div class="w-full mb-[10px]">
         <div class="mt-4"> <a class="text-blue-500" href="{{ url('/admin/productos') }}"> Volver </a> </div>
         @if (!empty($id))
             <div class="text-[1.1rem] py-4 text-fg"> Editando producto código: {{ $id }} </div>

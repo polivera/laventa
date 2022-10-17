@@ -1,8 +1,6 @@
 <?php
 
-use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminProductController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,15 +15,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [HomeController::class, 'index']);
-Route::get('/producto/{id}', [ProductController::class, 'detail']);
-
-Route::prefix('/admin')->group(function () {
-    Route::prefix('/productos')->group(function () {
-        Route::get('/', [AdminProductController::class, 'index']);
-        Route::get('/agregar', [AdminProductController::class, 'add']);
-        Route::post('/', [AdminProductController::class, 'save']);
-        Route::get('/{id}', [AdminProductController::class, 'detail']);
-        Route::get('/{id}/borrar', [AdminProductController::class, 'delete']);
-    });
+Route::get('/', function () {
+    return redirect('/productos');
 });
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/productos', [ProductController::class, 'list'])->name('product-list');
+    Route::get('/producto/{id}', [ProductController::class, 'detail'])->name('product-detail');
+});
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/admin/productos', [AdminProductController::class, 'index'])->name('admin');
+});
+
+require __DIR__ . '/auth.php';

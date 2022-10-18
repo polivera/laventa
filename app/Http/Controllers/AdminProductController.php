@@ -92,6 +92,7 @@ class AdminProductController extends Controller
     {
         if ($request->allFiles()) {
             ProductImage::deleteForProduct($productId);
+            // todo: you are not forgetting to remove the images as well right?
             for ($ind = 1; $ind <= 4; $ind++) {
                 if ($file = $request->file("image$ind", null)) {
                     $filename = date('YmdHi') . $file->getClientOriginalName();

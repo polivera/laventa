@@ -14,7 +14,7 @@
                         <div> <a class="text-blue-500" href="{{ url('/') }}">Listado</a> / <span
                                 class="text-fg">{{ $product->name }}</span></div>
                         <div class="flex flex-row gap-[20px]">
-                            <div class="flex-1 h-[562px] bg-red-500">
+                            <div class="flex-1 flex justify-center flex-col">
                                 @if ($product->images)
                                     @foreach ($product->images as $image)
                                         <img src="{{ url('image/' . $image->name) }}" />

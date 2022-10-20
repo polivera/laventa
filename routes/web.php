@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminProductController;
+use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,11 +30,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 Route::middleware(['auth', 'verified', 'is-admin'])->group(function () {
-    Route::get('/admin/productos', [AdminProductController::class, 'index'])->name('admin');
+    Route::get('/admin/productos', [AdminProductController::class, 'index'])->name('admin-product');
     Route::post('/admin/productos', [AdminProductController::class, 'save'])->name('admin-product-save');
     Route::get('/admin/productos/agregar', [AdminProductController::class, 'add'])->name('admin-product-add');
     Route::get('/admin/productos/{id}', [AdminProductController::class, 'detail'])->name('admin-product-detail');
     Route::get('/admin/productos/{id}/borrar', [AdminProductController::class, 'delete'])->name('admin-product-delete');
+
+    Route::get('/admin/usuarios', [AdminUserController::class, 'index'])->name('admin-user');
 });
 
 require __DIR__ . '/auth.php';

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 
-class AdminController extends Controller
+class AdminUserController extends Controller
 {
     private Product $productModel;
 
@@ -16,7 +16,6 @@ class AdminController extends Controller
     //
     public function index()
     {
-        $products = $this->productModel->getProducts();
-        return view('admin.index', ['products' => $products]);
+        echo "some user admin";
     }
 }

@@ -17,8 +17,11 @@
                     </x-nav-link>
 
                     @if (auth()->user()->role == 'admin')
-                        <x-nav-link :href="route('admin')" :active="request()->routeIs('admin')">
-                            {{ __('Admin') }}
+                        <x-nav-link :href="route('admin-product')" :active="request()->routeIs('admin-product')">
+                            {{ __('Admin Productos') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('admin-user')" :active="request()->routeIs('admin-user')">
+                            {{ __('Admin Usuarios') }}
                         </x-nav-link>
                     @endif
 
@@ -83,8 +86,12 @@
                 {{ __('Productos') }}
             </x-responsive-nav-link>
 
-            <x-responsive-nav-link :href="route('admin')" :active="request()->routeIs('admin')">
-                {{ __('Admin') }}
+            <x-responsive-nav-link :href="route('admin-product')" :active="request()->routeIs('admin-product')">
+                {{ __('Admin Productos') }}
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link :href="route('admin-user')" :active="request()->routeIs('admin-user')">
+                {{ __('Admin Usuarios') }}
             </x-responsive-nav-link>
 
         </div>

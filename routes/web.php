@@ -28,7 +28,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/producto/{id}', [ProductController::class, 'detail'])->name('product-detail');
 });
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth', 'verified', 'is-admin'])->group(function () {
     Route::get('/admin/productos', [AdminProductController::class, 'index'])->name('admin');
     Route::post('/admin/productos', [AdminProductController::class, 'save'])->name('admin-product-save');
     Route::get('/admin/productos/agregar', [AdminProductController::class, 'add'])->name('admin-product-add');

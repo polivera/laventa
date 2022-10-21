@@ -37,7 +37,7 @@ class Product extends Model
         return Product::with('images')->orderBy(self::NAME)->paginate($take)->onEachSide(1);
     }
 
-    public function getById($productId): Product
+    public function getById($productId): ?Product
     {
         return Product::with('images')->where('id', $productId)->first();
     }
@@ -56,18 +56,18 @@ class Product extends Model
         return $this->amount / 100;
     }
 
-    public static function new($fieldsArray): Product
+    public function new($fieldsArray): Product
     {
         $fieldsArray[Product::ID] = Str::uuid();
         return Product::create($fieldsArray);
     }
 
-    public static function change($id, $fieldArray)
+    public function change($id, $fieldArray)
     {
         return Product::where('id', $id)->update($fieldArray);
     }
 
-    public static function remove($id)
+    public function remove($id)
     {
             return Product::where('id', $id)->delete();
         }

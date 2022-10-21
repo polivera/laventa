@@ -37,6 +37,10 @@ Route::middleware(['auth', 'verified', 'is-admin'])->group(function () {
     Route::get('/admin/productos/{id}/borrar', [AdminProductController::class, 'delete'])->name('admin-product-delete');
 
     Route::get('/admin/usuarios', [AdminUserController::class, 'index'])->name('admin-user');
+    Route::post('/admin/usuarios', [AdminUserController::class, 'save'])->name('admin-user-save');
+    Route::get('/admin/usuarios/agregar', [AdminUserController::class, 'add'])->name('admin-user-add');
+    Route::get('/admin/usuarios/{id}', [AdminUserController::class, 'details'])->name('admin-user-detail');
+    Route::get('/admin/usuarios/{id}/borrar', [AdminUserController::class, 'delete'])->name('admin-user-delete');
 });
 
 require __DIR__ . '/auth.php';

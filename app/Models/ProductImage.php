@@ -17,12 +17,12 @@ class ProductImage extends Model
     protected $fillable = [self::PRODUCT_ID, self::NAME];
 
 
-    public static function new($rowData): ProductImage
+    public function new($rowData): ProductImage
     {
         return ProductImage::create($rowData);
     }
 
-    public static function deleteForProduct($productId)
+    public function deleteForProduct($productId)
     {
         return ProductImage::where(self::PRODUCT_ID, $productId)->delete();
     }

@@ -18,6 +18,7 @@ return new class () extends Migration {
             $table->integer('amount')->unsigned();
             $table->string('description')->nullable();
             $table->boolean('is_reserved')->default(false);
+            $table->unsignedInteger('reserved_by')->nullable();
             $table->timestamps();
             $table->primary('id');
         });

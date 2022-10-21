@@ -11,11 +11,13 @@ class AdminProductController extends Controller
 {
     private Product $productModel;
     private Category $categoryModel;
+    private ProductImage $productImageModel;
 
-    public function __construct(Product $product, Category $category)
+    public function __construct(Product $product, Category $category, ProductImage $productImage)
     {
         $this->productModel = $product;
         $this->categoryModel = $category;
+        $this->productImageModel = $productImage;
     }
 
     //
@@ -71,10 +73,10 @@ class AdminProductController extends Controller
 
         if ($request->input('id', null)) {
             $id = $request->input('id');
-            Product::change($id, $dataToStore);
+            $this->productModel->change($id, $dataToStore);
             $this->saveFiles($id, $request);
         } else {
-            $newProduct = Product::new($dataToStore);
+            $newProduct = $this->productModel->new($dataToStore);
             $this->saveFiles($newProduct->id, $request);
         }
 
@@ -83,15 +85,15 @@ class AdminProductController extends Controller
 
     public function delete($productId)
     {
-        ProductImage::deleteForProduct($productId);
-        Product::remove($productId);
+        $this->productImageModel->deleteForProduct($productId);
+        $this->productModel->remove($productId);
         return redirect('/admin/productos');
     }
 
     private function saveFiles($productId, SaveProductRequest $request)
     {
         if ($request->allFiles()) {
-            ProductImage::deleteForProduct($productId);
+            $this->productImageModel->deleteForProduct($productId);
             // todo: you are not forgetting to remove the images as well right?
             for ($ind = 1; $ind <= 4; $ind++) {
                 if ($file = $request->file("image$ind", null)) {
@@ -101,7 +103,7 @@ class AdminProductController extends Controller
                         ProductImage::PRODUCT_ID => $productId,
                         ProductImage::NAME => $filename,
                     ];
-                    ProductImage::new($imageRow);
+                    $this->productImageModel->new($imageRow);
                 }
             }
         }

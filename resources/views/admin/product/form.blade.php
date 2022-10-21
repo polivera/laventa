@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Productos') }}
+            {{ __('Administrador de Productos') }}
         </h2>
     </x-slot>
 
@@ -92,8 +92,10 @@
 
                             <div class="flex justify-end gap-[20px]">
                                 <button class="bg-green-500 rounded-full py-2 px-4">Guardar</button>
+                                @if (old('id', $id))
                                 <a class="bg-red-500 rounded-full py-2 px-4"
                                     href="{{ url('admin/productos/' . $id . '/borrar') }}">Borrar</a>
+                                @endif
                             </div>
                         </form>
                     </div>

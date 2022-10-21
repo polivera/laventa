@@ -2,20 +2,41 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
+use App\Models\User;
 
 class AdminUserController extends Controller
 {
-    private Product $productModel;
+    private User $userModel;
 
-    public function __construct(Product $product)
+    public function __construct(User $user)
     {
-        $this->productModel = $product;
+        $this->userModel = $user;
     }
 
     //
     public function index()
     {
-        echo "some user admin";
+        $users = $this->userModel->getUsers();
+        return view('admin.users.list', ['users' => $users]);
+    }
+
+    public function add()
+    {
+        echo "This is the user add view";
+    }
+
+    public function details()
+    {
+        echo "This is for the user details";
+    }
+
+    public function save()
+    {
+        echo "This is for saving the user";
+    }
+
+    public function delete()
+    {
+        echo "This is for deleting the user";
     }
 }

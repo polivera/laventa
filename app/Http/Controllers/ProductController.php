@@ -18,15 +18,15 @@ class ProductController extends Controller
 
     public function list()
     {
-        $products = $this->productModel->getProducts();
-        return view('products.list', ['products' => $products]);
+        $reservedProducts = $this->productModel->countReservedProducts(Auth::user()->id);
+        $products = $this->productModel->getAvailableProducts();
+        return view('products.list', ['products' => $products, 'countReserved' => $reservedProducts]);
     }
 
     //
     public function detail($productId)
     {
         $product = $this->productModel->getById($productId);
-        //dd($product);
         return view('products.details', ['product' => $product]);
     }
 
@@ -38,6 +38,6 @@ class ProductController extends Controller
         }
         $currentUserId = Auth::user()->id;
         $this->productModel->reserve($productId, $currentUserId);
-        return redirect('/producto');
+        return redirect('/productos');
     }
 }

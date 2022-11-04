@@ -46,9 +46,20 @@ class Product extends Model
         return Product::with('images')->orderBy(self::NAME)->paginate($take)->onEachSide(1);
     }
 
+    public function getAvailableProducts($take = 20)
+    {
+        return Product::with('images')->where(self::IS_RESERVED, false)
+            ->orderBy(self::NAME)->paginate($take)->onEachSide(1);
+    }
+
+    public function countReservedProducts($userId)
+    {
+        return Product::where(self::RESERVED_BY, $userId)->count();
+    }
+
     public function getById($productId): ?Product
     {
-        return Product::with('images')->where('id', $productId)->first();
+        return Product::with('images')->where(self::ID, $productId)->first();
     }
 
     public function getFormattedAmount()

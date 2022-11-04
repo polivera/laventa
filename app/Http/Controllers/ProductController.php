@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -27,5 +28,16 @@ class ProductController extends Controller
         $product = $this->productModel->getById($productId);
         //dd($product);
         return view('products.details', ['product' => $product]);
+    }
+
+    public function reserve($productId)
+    {
+        $product = $this->productModel->getById($productId);
+        if (!$product) {
+            return redirect('/dashboad');
+        }
+        $currentUserId = Auth::user()->id;
+        $this->productModel->reserve($productId, $currentUserId);
+        return redirect('/producto');
     }
 }

@@ -19,7 +19,7 @@
                             <tr>
                                 <th class="p-4 text-left border-b border-gray-300"> Nombre </th>
                                 <th class="w-[30px] border-b border-gray-300"></th>
-                                <th colspan=2 class="p-4 w-[100px] border-b border-gray-300"> Precio </th>
+                                <th class="p-4 w-[100px] border-b border-gray-300"> Precio </th>
                             </tr>
                         </thead>
                         <tbody>

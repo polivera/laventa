@@ -17,12 +17,21 @@ class Product extends Model
     public const AMOUNT = 'amount';
     public const DESCRIPTION = 'description';
     public const IS_RESERVED = 'is_reserved';
+    public const RESERVED_BY = 'reserved_by';
 
     public $table = 'products';
     public $incrementing = false;
     public $timestamps = false;
 
-    protected $fillable = [self::ID, self::CATEGORY_ID, self::NAME, self::AMOUNT, self::DESCRIPTION, self::IS_RESERVED];
+    protected $fillable = [
+        self::ID,
+        self::CATEGORY_ID,
+        self::NAME,
+        self::AMOUNT,
+        self::DESCRIPTION,
+        self::IS_RESERVED,
+        self::RESERVED_BY
+    ];
 
     public function images()
     {
@@ -67,8 +76,13 @@ class Product extends Model
         return Product::where('id', $id)->update($fieldArray);
     }
 
+    public function reserve($id, $userId)
+    {
+        return Product::where('id', $id)->update([self::IS_RESERVED => true, self::RESERVED_BY => $userId]);
+    }
+
     public function remove($id)
     {
-            return Product::where('id', $id)->delete();
-        }
+        return Product::where('id', $id)->delete();
+    }
 }

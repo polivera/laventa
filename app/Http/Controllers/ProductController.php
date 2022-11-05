@@ -40,4 +40,10 @@ class ProductController extends Controller
         $this->productModel->reserve($productId, $currentUserId);
         return redirect('/productos');
     }
+
+    public function reserved()
+    {
+        $products = $this->productModel->getReservedProducts(Auth::user()->id);
+        return view('products.list-reserved', ['products' => $products, 'countReserved' => $products->count()]);
+    }
 }

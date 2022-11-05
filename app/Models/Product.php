@@ -52,6 +52,12 @@ class Product extends Model
             ->orderBy(self::NAME)->paginate($take)->onEachSide(1);
     }
 
+    public function getReservedProducts($userId)
+    {
+        return Product::where(self::RESERVED_BY, $userId)
+            ->orderBy(self::NAME)->get();
+    }
+
     public function countReservedProducts($userId)
     {
         return Product::where(self::RESERVED_BY, $userId)->count();

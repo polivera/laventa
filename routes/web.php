@@ -26,6 +26,7 @@ Route::get('/dashboard', function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/productos', [ProductController::class, 'list'])->name('product-list');
+    Route::get('/productos/reservados', [ProductController::class, 'reserved'])->name('product-reserved-list');
     Route::get('/producto/{id}', [ProductController::class, 'detail'])->name('product-detail');
     Route::get('/producto/{id}/reservar', [ProductController::class, 'reserve'])->name('product-reserve');
 });

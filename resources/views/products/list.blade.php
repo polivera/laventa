@@ -1,12 +1,12 @@
 <x-app-layout>
     <x-slot name="header">
-    <div class="flex flex-row">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Productos') }}
-        </h2>
-        <div class="py-0.5 w-full text-end"> 
-            Productos reservados: {{ $countReserved }}
-        </div>
+        <div class="flex flex-row">
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                {{ __('Productos') }}
+            </h2>
+            <div class="py-0.5 w-full text-end">
+                <a href="{{ url('/productos/reservados') }}" class="text-blue-400">Productos reservados: {{ $countReserved }}</a>
+            </div>
     </x-slot>
 
     <div class="py-12">

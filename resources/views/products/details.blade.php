@@ -28,11 +28,19 @@
                                 <hr />
                                 <div class="text-[1rem] text-fg"> {{ $product->description }} </div>
                                 @if (!$product->is_reserved)
-                                <div class="flex justify-end py-8">
-                                    <a href="{{url('/producto/' . $product->id . '/reservar')}}" class="bg-blue-500 text-white rounded-full py-2 px-4"> Reservar </a>
-                                </div>
+                                    <div class="flex justify-end py-8">
+                                        <a href="{{ url('/producto/' . $product->id . '/reservar') }}"
+                                            class="bg-blue-500 text-white rounded-full py-2 px-4"> Reservar </a>
+                                    </div>
                                 @else
-                                <div class="py-8 flex justify-end"> <strong class="text-red-500">RESERVADO</strong> </div>
+                                    <div class="py-8 flex justify-end"> <strong class="text-red-500">RESERVADO</strong>
+                                    </div>
+                                @endif
+
+                                @if (!empty($errorMessage))
+                                    <div class="text-red-500">
+                                        <strong>{{ $errorMessage }}</strong>
+                                    </div>
                                 @endif
                             </div>
                         </div>

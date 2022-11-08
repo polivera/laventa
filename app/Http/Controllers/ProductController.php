@@ -36,6 +36,12 @@ class ProductController extends Controller
         if (!$product) {
             return redirect('/dashboad');
         }
+        if ($product->reserved_by != null) {
+            return view('products.detail', [
+                'product' => $product,
+                'errorMessage' => 'El producto ya fue reservado por otro usuario'
+            ]);
+        }
         $currentUserId = Auth::user()->id;
         $this->productModel->reserve($productId, $currentUserId);
         return redirect('/productos');
@@ -44,6 +50,11 @@ class ProductController extends Controller
     public function reserved()
     {
         $products = $this->productModel->getReservedProducts(Auth::user()->id);
-        return view('products.list-reserved', ['products' => $products, 'countReserved' => $products->count()]);
+        $totalValue = 0;
+        foreach ($products as $product) {
+            $totalValue += $product->amount;
+        }
+        return view('products.list-reserved', ['products' => $products, 'countReserved' => $products->count(),
+            'totalAmount' => number_format($totalValue / 100, 2)]);
     }
 }

@@ -25,7 +25,8 @@
                             </thead>
                             <tbody>
                                 @foreach ($products as $product)
-                                    <tr class="hover:bg-gray-200 cursor-pointer">
+                                    <tr class="hover:bg-gray-200 cursor-pointer"
+                                        onClick="location.href='{{ url('/producto/' . $product->id) }}'">
                                         <td class="text-fg p-4">{{ $product->name }}</td>
                                         <td class="text-center"> $ </td>
                                         <td class="p-4 text-right text-stone-600">
@@ -34,7 +35,17 @@
                                     </tr>
                                 @endforeach
                             </tbody>
+                            <tfoot>
+                                <tr class="text-red-500">
+                                    <td class="text-fg p-4"> <strong>Total</strong> </td>
+                                    <td class="text-center"> <strong>$</strong> </td>
+                                    <td class="p-4 text-right">
+                                        <strong>{{ $totalAmount }}</strong>
+                                    </td>
+                                </tr>
+                            </tfoot>
                         </table>
+
                     </div>
                 </div>
             </div>

@@ -6,18 +6,21 @@ use App\Http\Requests\SaveProductRequest;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\ProductImage;
+use App\Models\User;
 
 class AdminProductController extends Controller
 {
     private Product $productModel;
     private Category $categoryModel;
     private ProductImage $productImageModel;
+    private User $userModel;
 
-    public function __construct(Product $product, Category $category, ProductImage $productImage)
+    public function __construct(Product $product, Category $category, ProductImage $productImage, User $user)
     {
         $this->productModel = $product;
         $this->categoryModel = $category;
         $this->productImageModel = $productImage;
+        $this->userModel = $user;
     }
 
     //
@@ -48,6 +51,10 @@ class AdminProductController extends Controller
             abort(404, 'Page not found');
         }
         $categories = $this->categoryModel->getAllCategories();
+        $userReserved = null;
+        if ($product->reserved_by != null) {
+            $userReserved = $this->userModel->find($product->reserved_by)->first();
+        }
         return view('admin.product.form', [
             'id' => $product->id,
             'category_id' => $product->category_id,
@@ -55,6 +62,7 @@ class AdminProductController extends Controller
             'amount' => $product->getRealAmount(),
             'description' => $product->description,
             'images' => $product->images,
+            'userReserved' => $userReserved,
             'categories' => $categories
         ]);
     }

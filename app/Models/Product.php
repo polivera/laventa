@@ -16,8 +16,12 @@ class Product extends Model
     public const NAME = 'name';
     public const AMOUNT = 'amount';
     public const DESCRIPTION = 'description';
+    public const STATUS = 'status';
     public const IS_RESERVED = 'is_reserved';
     public const RESERVED_BY = 'reserved_by';
+
+    public const STATUS_ACTIVE = 1;
+    public const STATUS_SOLD = 2;
 
     public $table = 'products';
     public $incrementing = false;

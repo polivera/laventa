@@ -11,8 +11,14 @@
                 <div class="p-6 bg-white border-b border-gray-200">
 
                     <div class="w-full mb-[10px]">
-                        <div class="mt-4"> <a class="text-blue-500" href="{{ url('/admin/productos') }}"> Volver </a>
+                        <div class="mt-4"> 
+                            <a class="text-blue-500" href="{{ url('/admin/productos') }}"> Volver </a>
                         </div>
+                        @if (!empty($userReserved))
+                            <div>
+                                Producto reservado por {{ $userReserved->email }}
+                            <div>
+                        @endif
                         @if (!empty($id))
                             <div class="text-[1.1rem] py-4 text-fg"> Editando producto código: {{ $id }}
                             </div>
@@ -36,8 +42,7 @@
                                 <label class="text-fg" for="amount">Precio: <span
                                         class="text-red-600">*</span></label>
                                 <input class="rounded-md border border-gray-300 px-4 pb-2 pt-1" type="number"
-                                    step="0.01" name="amount" id="amount"
-                                    value="{{ old('amount', $amount) }}">
+                                    step="0.01" name="amount" id="amount" value="{{ old('amount', $amount) }}">
                                 @error('amount')
                                     <span class="text-red-600"> {{ $message }} </span>
                                 @enderror
@@ -58,8 +63,7 @@
                             <div class="flex flex-col">
                                 <label class="text-fg" for="description">Descripción: <span
                                         class="text-red-600">*</span></label>
-                                <textarea class="rounded-md border border-gray-300 px-4 pb-2 pt-1" id="description" name="description"
-                                    rows="8"> {{ old('description', $description) }}</textarea>
+                                <textarea class="rounded-md border border-gray-300 px-4 pb-2 pt-1" id="description" name="description" rows="8"> {{ old('description', $description) }}</textarea>
                                 @error('description')
                                     <span class="text-red-600"> {{ $message }} </span>
                                 @enderror
@@ -90,13 +94,18 @@
                                 <input type="file" name="image4" id="image4" />
                             </div>
 
+
+                            @if (empty($userReserved))
+
                             <div class="flex justify-end gap-[20px]">
                                 <button class="bg-green-500 rounded-full py-2 px-4">Guardar</button>
                                 @if (old('id', $id))
-                                <a class="bg-red-500 rounded-full py-2 px-4"
-                                    href="{{ url('admin/productos/' . $id . '/borrar') }}">Borrar</a>
+                                    <a class="bg-red-500 rounded-full py-2 px-4"
+                                        href="{{ url('admin/productos/' . $id . '/borrar') }}">Borrar</a>
                                 @endif
                             </div>
+
+                            @endif
                         </form>
                     </div>
 
